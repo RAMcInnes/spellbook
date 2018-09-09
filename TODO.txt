@@ -1,0 +1,29 @@
+MY SPELLBOOK
+    - Select SPELLBOOK
+        - on select, load spellbook
+
+
+
+ALL SPELLS
+    - USE http://www.dnd5eapi.co/
+    - ADD Filters
+        - FILTERS WILL BE USED WITH v-if
+        - Level
+        - School
+        - Class
+    - Spell
+        - Spell should have a collapseable "description"
+
+
+
+CREATE-A-SPELLS
+ - Forum
+    - Should have all the components of creating a SPELLS
+        - Name
+        - Level [Dropdown]
+        - School [Dropdown] (Level & School will be combined together)
+        - Range
+        - Components
+        - Duration
+        - Classes
+        - Description

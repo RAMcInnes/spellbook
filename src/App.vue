@@ -15,6 +15,9 @@
         components: {
             appHeader: Header
         },
+        created() {
+            this.$store.dispatch('loadSpells');
+        }
     }
 </script>
 

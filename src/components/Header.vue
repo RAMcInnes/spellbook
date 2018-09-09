@@ -8,9 +8,6 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/spells">All Spells</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/createASpell">Create-A-Spells</a>
-                </li>
             </ul>   
         </div>
     </nav>
