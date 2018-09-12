@@ -1,6 +1,5 @@
 <template>
-    <div class="col-md-4">
-        <div class="card" style="width: 30rem;">
+        <div class="card" @click="addToSpellbook">
             <div class="card-body">
                 <h1 class="card-title">{{ spell.name }}</h1>
                 <h6 class="card-subtitle mb-2 text-muted">{{ level }} - {{ spell.school.name }}</h6>
@@ -17,7 +16,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -27,35 +25,25 @@ export default {
          level() {
              switch(this.spell.level) {
                 case 0:
-                    return "Cantrip"
-                    break;
+                    return "Cantrip";
                 case 1:
-                   return "1st Level"
-                   break;
+                    return "1st Level";
                 case 2:
-                    return "2nd Level"
-                    break;
+                    return "2nd Level";
                 case 3:
-                    return "3rd Level"
-                    break;
+                    return "3rd Level";
                 case 4:
-                    return "4th Level"
-                    break;
+                    return "4th Level";
                 case 5:
-                    return "5th Level"
-                    break;
+                    return "5th Level";
                 case 6:
-                    return "6th Level"
-                    break;
+                    return "6th Level";
                 case 7:
-                    return "7th Level"
-                    break;
+                    return "7th Level";
                 case 8:
-                    return "8th Level"
-                    break;
+                    return "8th Level";
                 case 9:
-                    return "9th Level"
-                    break;
+                    return "9th Level";
              }
          },
          components() {
@@ -75,10 +63,41 @@ export default {
              }
              return classString;
          }
+     },
+     methods: {
+         addToSpellbook() {
+            // console.log("element",element);
+            const spell = {
+                name: this.spell.name,
+                level: this.spell.level,
+                school: { name: this.spell.school.name },
+                casting_time: this.spell.casting_time,
+                range: this.spell.range,
+                components: this.spell.components,
+                duration: this.spell.duration,
+                classes: this.spell.classes
+            }
+            this.$store.dispatch('addSpelltoMySpellbook', spell);
+         }
      }
 }
 </script>
 
 <style>
-
+    .card {
+        display: inline-block;
+        width: 50%;
+        height: 100%;
+    }
+    .card:hover {
+        background-color: lightgreen;
+        background-image: url("https://png.icons8.com/metro/50/000000/plus.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 15%;
+    }
+    .added {
+        background-color: lightgray;
+        opacity: .5;
+    }
 </style>

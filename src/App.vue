@@ -2,8 +2,8 @@
     <div class="container">
         <app-header></app-header>
         <div class="row">
-            <div class="col-xs-12">
-                    <router-view></router-view>
+            <div class="col-12">
+                <router-view></router-view>
             </div>
         </div>
     </div>
@@ -16,7 +16,11 @@
             appHeader: Header
         },
         created() {
-            this.$store.dispatch('loadSpells');
+            const spellsLoaded = this.$store.getters.hasLoadedAllSpells;
+            if (spellsLoaded === false) {
+                this.$store.dispatch('setHasLoaded', true);
+                this.$store.dispatch('loadSpells');
+            }
         }
     }
 </script>

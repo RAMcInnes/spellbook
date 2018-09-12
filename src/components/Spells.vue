@@ -14,6 +14,7 @@
                 <button type="button" class="btn btn-secondary">9</button>
             </div>
         </div>
+        <br>
         <app-spell v-for="spell in spells" :spell="spell" :key="spell.id"></app-spell>
     </div>
 </template>
@@ -27,7 +28,7 @@
         },
         computed: {
             spells() {
-                return this.$store.getters.spells;
+                return this.$store.getters.allSpells;
             }
         }
     }
