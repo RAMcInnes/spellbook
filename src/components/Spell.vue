@@ -1,5 +1,5 @@
 <template>
-        <div class="card" @click="addToSpellbook">
+        <div class="card" :class="{added: spellAdded}" :disabled="{added: spellAdded}" @click="addToSpellbook">
             <div class="card-body">
                 <h1 class="card-title">{{ spell.name }}</h1>
                 <h6 class="card-subtitle mb-2 text-muted">{{ level }} - {{ spell.school.name }}</h6>
@@ -21,6 +21,11 @@
 <script>
 export default {
      props: ['spell'],
+     data() {
+         return {
+             spellAdded: false
+         }
+     },
      computed: {
          level() {
              switch(this.spell.level) {
@@ -66,18 +71,20 @@ export default {
      },
      methods: {
          addToSpellbook() {
-            // console.log("element",element);
-            const spell = {
-                name: this.spell.name,
-                level: this.spell.level,
-                school: { name: this.spell.school.name },
-                casting_time: this.spell.casting_time,
-                range: this.spell.range,
-                components: this.spell.components,
-                duration: this.spell.duration,
-                classes: this.spell.classes
+            if (!this.spellAdded) {
+                const spell = {
+                    name: this.spell.name,
+                    level: this.spell.level,
+                    school: { name: this.spell.school.name },
+                    casting_time: this.spell.casting_time,
+                    range: this.spell.range,
+                    components: this.spell.components,
+                    duration: this.spell.duration,
+                    classes: this.spell.classes
+                }
+                this.$store.dispatch('addSpelltoMySpellbook', spell);
+                this.spellAdded = true;
             }
-            this.$store.dispatch('addSpelltoMySpellbook', spell);
          }
      }
 }

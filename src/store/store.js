@@ -32,20 +32,22 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        setHasLoaded: (context, hasLoaded) => {
-            context.commit("SET_HAS_LOADED_ALL_SPELLS", hasLoaded);
-        },
         loadSpells: (context) => {
+            let allPromises = [];
             Vue.http.get('http://www.dnd5eapi.co/api/spells')
                 .then(response => response.json())
                 .then(spells => {
                     for (let spell of spells.results) {
-                        Vue.http.get(spell.url)
+                        const spellPromise = Vue.http.get(spell.url)
                             .then(response => response.json())
                             .then(spell => {
                                 context.commit('ADD_SPELL_TO_ALLSPELLS', spell);
                         });
+                        allPromises.push(spellPromise);
                     }
+                    Promise.all(allPromises).then(() => {
+                        context.commit('SET_HAS_LOADED_ALL_SPELLS', true);
+                    });
             });
         },
         addSpelltoMySpellbook: (context, spell) => {
