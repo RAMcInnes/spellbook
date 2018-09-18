@@ -1,35 +1,32 @@
 <template>
-    <div> Filters
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"> <b>Levels</b> 
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-secondary">0</button>
-                <button type="button" class="btn btn-secondary">1</button>
-                <button type="button" class="btn btn-secondary">2</button>
-                <button type="button" class="btn btn-secondary">3</button>
-                <button type="button" class="btn btn-secondary">4</button>
-                <button type="button" class="btn btn-secondary">5</button>
-                <button type="button" class="btn btn-secondary">6</button>
-                <button type="button" class="btn btn-secondary">7</button>
-                <button type="button" class="btn btn-secondary">8</button>
-                <button type="button" class="btn btn-secondary">9</button>
-            </div>
-        </div>
-        <br>
+    <div>
+        <app-spell-filter></app-spell-filter>
+        <hr>
         <app-spell v-for="spell in spells" :spell="spell" :key="spell.id"></app-spell>
     </div>
 </template>
 
 <script>
     import Spell from './Spell.vue';
+    import SpellFilter from './SpellFilters.vue';
 
     export default {
         components: {
+            appSpellFilter: SpellFilter,
             appSpell: Spell
         },
         computed: {
             spells() {
-                return this.$store.getters.allSpells;
+                const filteredSpells = this.$store.getters.filteredSpells;
+                if (filteredSpells.length > 0) {
+                    return this.$store.getters.filteredSpells;
+                } else {
+                    return this.$store.getters.allSpells;
+                }
             }
         }
     }
 </script>
+
+<style>
+</style>

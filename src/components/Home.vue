@@ -6,6 +6,7 @@
 
 <script>
     import Spell from './Spell.vue';
+
     export default {
         components: {
             appSpell: Spell
@@ -19,5 +20,4 @@
 </script>
 
 <style>
-
 </style>

@@ -1,11 +1,11 @@
 <template>
     <div class="container">
         <app-header></app-header>
-                <div v-if="!spellsLoaded">
+        <div v-if="!spellsLoaded">
             <app-loader></app-loader>
             <p>Please wait while the spells are transcribed</p>
         </div>
-        <div class="row">
+        <div v-else class="row">
             <div class="col-12">
                 <router-view></router-view>
             </div>
@@ -27,7 +27,7 @@
             }
         },
         created() {
-            this.$store.dispatch('loadSpells');
+            this.$store.dispatch('loadAllSpells');
         }
     }
 </script>

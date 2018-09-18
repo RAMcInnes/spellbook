@@ -1,29 +1,21 @@
 MY SPELLBOOK
     - Select SPELLBOOK
-        - on select, load spellbook
-
-
+        - On select -> load spellbook
 
 ALL SPELLS
     - USE http://www.dnd5eapi.co/
+
     - ADD Filters
-        - FILTERS WILL BE USED WITH v-if
+        - By ROW should be OR
+        - Between all should be AND
+        - FILTERS WILL BE USED WITH v-if (maybe)
         - Level
         - School
         - Class
-    - Spell
-        - Spell should have a collapseable "description"
+        - Text
 
+SpellFilters
+    - Logic will set $store -> filteredSpells
 
-
-CREATE-A-SPELLS
- - Forum
-    - Should have all the components of creating a SPELLS
-        - Name
-        - Level [Dropdown]
-        - School [Dropdown] (Level & School will be combined together)
-        - Range
-        - Components
-        - Duration
-        - Classes
-        - Description
+Spell
+    - When navigating away from "All Spells" and then back, spell should remained greyed out

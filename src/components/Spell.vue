@@ -1,18 +1,18 @@
 <template>
-        <div class="card" :class="{added: spellAdded}" :disabled="{added: spellAdded}" @click="addToSpellbook">
+        <div class="card" :class="{added: spellAdded}" @click="addToSpellbook">
             <div class="card-body">
                 <h1 class="card-title">{{ spell.name }}</h1>
                 <h6 class="card-subtitle mb-2 text-muted">{{ level }} - {{ spell.school.name }}</h6>
                 <div class="card-text">
-                    <span><b>Casting Time:</b> {{ spell.casting_time }}</span>
+                    <span><b>Casting Time: </b>{{ spell.casting_time }}</span>
                     <br>
-                    <span><b>Range:</b> {{ spell.range }}</span>
+                    <span><b>Range: </b>{{ spell.range }}</span>
                     <br>
-                    <span><b>Components:</b> {{ components }}</span>
+                    <span><b>Components: </b>{{ components }}</span>
                     <br>
-                    <span><b>Duration:</b> {{ spell.duration }}</span>
+                    <span><b>Duration: </b>{{ spell.duration }}</span>
                     <br>
-                    <span><b>Classes: </b> {{ classes }}</span>
+                    <span><b>Classes: </b>{{ classes }}</span>
                 </div>
             </div>
         </div>
@@ -79,10 +79,11 @@ export default {
                     casting_time: this.spell.casting_time,
                     range: this.spell.range,
                     components: this.spell.components,
+                    material: this.spell.material,
                     duration: this.spell.duration,
                     classes: this.spell.classes
                 }
-                this.$store.dispatch('addSpelltoMySpellbook', spell);
+                this.$store.dispatch('addSpellToMySpellbook', spell);
                 this.spellAdded = true;
             }
          }
@@ -105,6 +106,5 @@ export default {
     }
     .added {
         background-color: lightgray;
-        opacity: .5;
     }
 </style>
