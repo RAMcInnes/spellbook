@@ -106,45 +106,59 @@
                 const spellList = this.$store.getters.filteredSpells.length > 0 ? this.$store.getters.filteredSpells.slice(0) : this.$store.getters.allSpells.slice(0);
                 let filterList = [];
 
-                // eslint-disable-next-line
-                console.log(filterList);
 
-                // I'm referencing spellList here. This is probably a problem. 
-                // However, if there are no levelFilters, then filterList should = spellList ... I think
-                filterList = spellList.filter((spell) => {
-                    for (let level in levelFilters) {
-                        if (spell.level === level) {
-                            return true;
+                // ONLY USE APPLY FILTER WHEN NEEDED (spellList vs filterList?)
+
+
+                // eslint-disable-next-line
+                console.log("---INIT---", filterList);
+
+
+                // Filter based on spell.level
+                if (levelFilters.length > 0) {
+                    // I'm referencing spellList here. This is probably a problem. 
+                    filterList = spellList.filter((spell) => {
+                        for (let level of levelFilters) {
+                            if (spell.level === level) {
+                                return true;
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
                 // eslint-disable-next-line
                 console.log("POST LEVEL",filterList);
 
-                filterList = filterList.filter((spell) => {
-                    for (let school in schoolFilters) {
-                        if (spell.school.name === school) {
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-
-                // eslint-disable-next-line
-                console.log("POST SCHOOL",filterList);
-
-                filterList = filterList.filter((spell) => {
-                    for (let className in classFilters) {
-                        for (let spellClass in spell.classes) {
-                            if (spellClass === className) {
+                // Filter based on spell.school.name
+                if (schoolFilters.length > 0) {
+                    filterList = filterList.filter((spell) => {
+                        for (let school of schoolFilters) {
+                            if (spell.school.name === school) {
                                 return true;
                             }
                             return false;
                         }
-                    }
-                });
+                    });
+                }
 
+                // eslint-disable-next-line
+                console.log("POST SCHOOL",filterList);
+
+                if (classFilters.length > 0) {
+                     // Filter based on spell.classes (thus the 2 for loops)
+                    // CHECK IF 2 FOR LOOPS WORK
+                    filterList = filterList.filter((spell) => {
+                        for (let className of classFilters) {
+                            for (let spellClass of spell.classes) {
+                                if (spellClass === className) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        }
+                    });
+                }
+                
                 // eslint-disable-next-line
                 console.log("POST CLASS",filterList);
 

@@ -102,7 +102,7 @@ export default new Vuex.Store({
             context.commit('ADD_SCHOOL_TO_SCHOOLFILTER', school);
         },
         removeSchoolFromSchoolFilter: (context, school) => {
-            const schoolIndex = context.getters.schoollFilter.indexOf(school);
+            const schoolIndex = context.getters.schoolFilter.indexOf(school);
             context.commit('REMOVE_SCHOOL_FROM_SCHOOLFILTER', schoolIndex);
         },
         addClassToClassFilter: (context, className) => {
