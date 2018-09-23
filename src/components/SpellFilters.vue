@@ -1,6 +1,6 @@
 <template>
     <div id="spellFilters">
-        <span id="filterHeaderLabel">Filters</span>
+        <div id="filterHeaderLabel">Filters</div>
         <div class="btn-toolbar filterToolbar" role="toolbar">
             <span class="filterLabel">Levels:</span>
             <div class="btn-group mr-2" role="group">
@@ -172,12 +172,20 @@
         font-weight: bold;
         padding-top: 10px;
         padding-right: 5px;
-        width: 65px;
+        width: 70px;
     }
     .btn {
         text-align: center;
     }
     #searchbar {
         padding-top: 10px;
+    }
+    @media screen and (max-width: 600px) {
+        #filterHeaderLabel {
+            display: none;
+        }
+        .filterLabel {
+            display: none;
+        }
     }
 </style>

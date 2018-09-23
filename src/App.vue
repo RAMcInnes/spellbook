@@ -1,8 +1,6 @@
 <template>
     <div class="container">
-        <div class="row">
-            <app-header></app-header>
-        </div>
+        <app-header></app-header>
         <br>
         <div v-if="!spellsLoaded">
             <app-loader></app-loader>
@@ -41,6 +39,6 @@
     body {
         padding-top: 10px;
         padding-bottom: 10px;
-        background-color: bisque;
+        background-color: lightslategrey;
     }
 </style>

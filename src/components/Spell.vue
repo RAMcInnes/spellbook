@@ -20,7 +20,7 @@
                 <br>
             </div>
                 <button
-                        class="btn btn-info"
+                        class="btn btn-info descriptionButton"
                         data-toggle="collapse"
                         :data-target="'#spellDescription' + spell.index">
                         Description
@@ -131,5 +131,8 @@ export default {
     #spellTitle {
         font-size: 35px;
         font-weight: bold;
+    }
+    .descriptionButton {
+        margin-top: 5px;
     }
 </style>
