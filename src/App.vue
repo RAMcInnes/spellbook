@@ -1,14 +1,15 @@
 <template>
     <div class="container">
-        <app-header></app-header>
+        <div class="row">
+            <app-header></app-header>
+        </div>
+        <br>
         <div v-if="!spellsLoaded">
             <app-loader></app-loader>
             <p>Please wait while the spells are transcribed</p>
         </div>
         <div v-else class="row">
-            <div class="col-12">
                 <router-view></router-view>
-            </div>
         </div>
     </div>
 </template>
@@ -28,12 +29,18 @@
         },
         created() {
             this.$store.dispatch('loadAllSpells');
+            // This may seem weird, but I am setting filteredSpells = allSpells here.
+            // This is because allSpells will never change, but filteredSpells will.
+            const spellList = this.$store.getters.allSpells;
+            this.$store.dispatch('setFilteredSpells', spellList);
         }
     }
 </script>
 
 <style>
     body {
-        padding: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: bisque;
     }
 </style>

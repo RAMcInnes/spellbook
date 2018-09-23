@@ -1,21 +1,12 @@
 MY SPELLBOOK
-    - Select SPELLBOOK
-        - On select -> load spellbook
 
 ALL SPELLS
-    - USE http://www.dnd5eapi.co/
-
-    - ADD Filters
-        - By ROW should be OR
-        - Between all should be AND
-        - FILTERS WILL BE USED WITH v-if (maybe)
-        - Level
-        - School
-        - Class
-        - Text
 
 SpellFilters
-    - Logic will set $store -> filteredSpells
+    - Persistant filters
+        - clearFilters button / function
+    - Need to show spells from multiple classes. (Bard || Wizard)
+        - Still not working exactly as expected (Cantrip, 1st, 2nd && Necromancy && Bard)
 
 Spell
-    - When navigating away from "All Spells" and then back, spell should remained greyed out
+    - Make Mobile Friendly

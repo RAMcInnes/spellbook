@@ -44,7 +44,7 @@ export default new Vuex.Store({
             state.allSpells.push(spell);
         },
         'SET_FILTEREDSPELLS'(state, spells) {
-            state.filteredSpells = spells.slice(0);
+            state.filteredSpells = spells;
         },
         'ADD_LEVEL_TO_LEVELFILTER'(state, level) {
             state.levelFilter.push(level);
@@ -67,27 +67,35 @@ export default new Vuex.Store({
         'ADD_SPELL_TO_MYSPELLS'(state, spell) {
             state.mySpells.push(spell);
         },
+        'REMOVE_SPELL_FROM_MYSPELLS'(state,spellIndex) {
+            state.mySpells.splice(spellIndex, 1);
+        }
     },
     actions: {
         loadAllSpells: (context) => {
-            let allPromises = [];
-            Vue.http.get('http://www.dnd5eapi.co/api/spells')
-                .then(response => response.json())
-                .then(spells => {
-                    for (let spell of spells.results) {
-                        const spellPromise = Vue.http.get(spell.url)
-                            .then(response => response.json())
-                            .then(spell => {
-                                context.commit('ADD_SPELL_TO_ALLSPELLS', spell);
-                            });
-                        allPromises.push(spellPromise);
-                    }
-                    // Make sure all ADD_SPELL_TO_ALLSPELLS have been called first
-                    Promise.all(allPromises).then(() => {
-                        context.commit('SET_HAS_LOADED_ALL_SPELLS', true);
-                    });
-                });
+            Vue.http.get('https://dnd-spellbook-c8912.firebaseio.com/allSpells.json')
+            .then(response => response.json())
+            .then(spells => {
+                for (let spellId in spells) {
+                    const spell = spells[spellId];
+                    context.commit('ADD_SPELL_TO_ALLSPELLS', spell);
+                }
+                context.commit('SET_HAS_LOADED_ALL_SPELLS', true);
+            });
         },
+        // loadSpellsFromAPItoFirebase: (context) => {
+        //     Vue.http.get('http://www.dnd5eapi.co/api/spells')
+        //         .then(response => response.json())
+        //         .then(spells => {
+        //             for (let spell of spells.results) {
+        //                 Vue.http.get(spell.url)
+        //                     .then(response => response.json())
+        //                     .then(spell => {
+        //                         Vue.http.post("https://dnd-spellbook-c8912.firebaseio.com/allSpells.json", spell);
+        //                 });
+        //             }
+        //     });
+        // },
         setFilteredSpells: (context, spells) => {
             context.commit('SET_FILTEREDSPELLS', spells);
         },
@@ -114,6 +122,18 @@ export default new Vuex.Store({
         },
         addSpellToMySpellbook: (context, spell) => {
             context.commit('ADD_SPELL_TO_MYSPELLS', spell);
+        },
+        removeSpellFromMySpellbook: (context, spell) => {
+            const spellList = context.getters.mySpells;
+            let spellIndex = '';
+
+            spellList.forEach((spellListSpell, index) => {
+                if (spellListSpell.name === spell.name) {
+                    spellIndex = index;
+                }
+            });
+
+            context.commit('REMOVE_SPELL_FROM_MYSPELLS', spellIndex);
         }
     }
 });

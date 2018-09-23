@@ -1,7 +1,7 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <router-link to="/" class="navbar-brand">My Spellbooks</router-link>
-        <router-link to="/spells" class="navbar-brand">All Spells</router-link>
+    <nav class="navbar navbar-dark bg-dark sticky-top">
+        <router-link to="/" class="navbar-brand">My Spellbook</router-link>
+        <router-link to="/spellLibrary" class="navbar-brand">Spell Library</router-link>
     </nav>
 </template>
 

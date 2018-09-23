@@ -1,7 +1,7 @@
-import Home from './components/Home.vue';
-import AllSpells from './components/Spells.vue';
+import MySpellbook from './components/MySpellbook.vue';
+import SpellLibrary from './components/SpellLibrary.vue';
 
 export const routes = [
-    { path: '/', component: Home },
-    { path: '/spells', component: AllSpells },
+    { path: '/', component: MySpellbook },
+    { path: '/spellLibrary', component: SpellLibrary },
 ];

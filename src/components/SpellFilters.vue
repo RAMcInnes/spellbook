@@ -26,12 +26,14 @@
                 <button type="button" class="btn" @click="addFilter($event, {school:'Evocation'})">Evocation</button>
                 <button type="button" class="btn" @click="addFilter($event, {school:'Illusion'})">Illusion</button>
                 <button type="button" class="btn" @click="addFilter($event, {school:'Necromancy'})">Necromancy</button>
+                <button type="button" class="btn" @click="addFilter($event, {school:'Transmutation'})">Transmutation</button>
             </div>
         </div>
         <div class="btn-toolbar filterToolbar" role="toolbar">
             <span class="filterLabel">Classes:</span>
             <div class="btn-group mr-2" role="group">
                 <button type="button" class="btn" @click="addFilter($event, {className:'Bard'})">Bard</button>
+                <button type="button" class="btn" @click="addFilter($event, {className:'Cleric'})">Cleric</button>
                 <button type="button" class="btn" @click="addFilter($event, {className:'Druid'})">Druid</button>
                 <button type="button" class="btn" @click="addFilter($event, {className:'Paladin'})">Paladin</button>
                 <button type="button" class="btn" @click="addFilter($event, {className:'Ranger'})">Ranger</button>
@@ -42,7 +44,7 @@
         </div>
         <div class="form-group" id="searchbar">
             <div class="col-sm-12 col-md-12 col-lg-12">
-                <input type="search" class="form-control" id="search" placeholder="Spell Name...">
+                <input v-model="textFilter" v-on:input="applyFilters" type="search" class="form-control" id="search" placeholder="Spell Name...">
             </div>
         </div>
     </div>
@@ -52,8 +54,7 @@
     export default {
         data() {
             return {
-                spells: this.$store.getters.allSpells,
-                filteredSpells: []
+                textFilter: ""
             }
         },
         methods: {
@@ -95,29 +96,17 @@
                     }
                 }
 
-                this.applyFilter();
+                this.applyFilters();
             },
-            applyFilter() {
+            applyFilters() {
                 const levelFilters = this.$store.getters.levelFilter;
                 const schoolFilters = this.$store.getters.schoolFilter;
                 const classFilters = this.$store.getters.classFilter;
-
-                // Use filteredSpells unless it is empty, then use allSpells as base.
-                const spellList = this.$store.getters.filteredSpells.length > 0 ? this.$store.getters.filteredSpells.slice(0) : this.$store.getters.allSpells.slice(0);
-                let filterList = [];
-
-
-                // ONLY USE APPLY FILTER WHEN NEEDED (spellList vs filterList?)
-
-
-                // eslint-disable-next-line
-                console.log("---INIT---", filterList);
-
+                let spellList = this.$store.getters.allSpells;
 
                 // Filter based on spell.level
                 if (levelFilters.length > 0) {
-                    // I'm referencing spellList here. This is probably a problem. 
-                    filterList = spellList.filter((spell) => {
+                    spellList = spellList.filter((spell) => {
                         for (let level of levelFilters) {
                             if (spell.level === level) {
                                 return true;
@@ -126,43 +115,42 @@
                     });
                 }
 
-                // eslint-disable-next-line
-                console.log("POST LEVEL",filterList);
-
                 // Filter based on spell.school.name
                 if (schoolFilters.length > 0) {
-                    filterList = filterList.filter((spell) => {
+                    spellList = spellList.filter((spell) => {
                         for (let school of schoolFilters) {
                             if (spell.school.name === school) {
                                 return true;
                             }
-                            return false;
                         }
                     });
                 }
 
-                // eslint-disable-next-line
-                console.log("POST SCHOOL",filterList);
-
+                // Filter based on spell.classes (thus the 2 for loops)
                 if (classFilters.length > 0) {
-                     // Filter based on spell.classes (thus the 2 for loops)
-                    // CHECK IF 2 FOR LOOPS WORK
-                    filterList = filterList.filter((spell) => {
-                        for (let className of classFilters) {
-                            for (let spellClass of spell.classes) {
-                                if (spellClass === className) {
+                    spellList = spellList.filter((spell) => {
+                        for (let spellClass of spell.classes) {
+                            for (let className of classFilters) {
+                                if (spellClass.name === className) {
                                     return true;
                                 }
-                                return false;
                             }
                         }
                     });
                 }
-                
-                // eslint-disable-next-line
-                console.log("POST CLASS",filterList);
 
-                this.$store.dispatch('setFilteredSpells', filterList);
+                /*
+                 *  NOTE: I'm not adding the textFilter to the $store... should I?
+                 *  Although I guess that argument could be made for the other filters...
+                 */
+                // Filter based on text input
+                if (this.textFilter) {
+                    spellList = spellList.filter((spell) => {
+                        return spell.name.toUpperCase().indexOf(this.textFilter.toUpperCase()) > -1;
+                    });
+                }
+
+                this.$store.dispatch('setFilteredSpells', spellList);
             }
         }
     }
