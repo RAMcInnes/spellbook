@@ -1,45 +1,48 @@
 <template>
     <div id="spellFilters">
-        <div id="filterHeaderLabel">Filters</div>
+        <div >
+            <span id="filterHeaderLabel">FILTERS</span>
+            <button type="button" class="btn btn-danger" @click="clearFilters()">Clear Filters</button>
+        </div>
         <div class="btn-toolbar filterToolbar" role="toolbar">
             <span class="filterLabel">Levels:</span>
             <div class="btn-group mr-2" role="group">
-                <button type="button" class="btn" @click="addFilter($event, {level:0})">Cantrip</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:1})">1st</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:2})">2nd</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:3})">3rd</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:4})">4th</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:5})">5th</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:6})">6th</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:7})">7th</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:8})">8th</button>
-                <button type="button" class="btn" @click="addFilter($event, {level:9})">9th</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',0) }" @click="addFilter($event, {level:0})">Cantrip</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',1) }" @click="addFilter($event, {level:1})">1st</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',2) }" @click="addFilter($event, {level:2})">2nd</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',3) }" @click="addFilter($event, {level:3})">3rd</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',4) }" @click="addFilter($event, {level:4})">4th</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',5) }" @click="addFilter($event, {level:5})">5th</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',6) }" @click="addFilter($event, {level:6})">6th</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',7) }" @click="addFilter($event, {level:7})">7th</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',8) }" @click="addFilter($event, {level:8})">8th</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('level',9) }" @click="addFilter($event, {level:9})">9th</button>
             </div>
         </div>
         <div class="btn-toolbar filterToolbar" role="toolbar">
             <span class="filterLabel">Schools:</span>
             <div class="btn-group mr-2" role="group">
-                <button type="button" class="btn" @click="addFilter($event, {school:'Abjuration'})">Abjuration</button>
-                <button type="button" class="btn" @click="addFilter($event, {school:'Conjuration'})">Conjuration</button>
-                <button type="button" class="btn" @click="addFilter($event, {school:'Divination'})">Divination</button>
-                <button type="button" class="btn" @click="addFilter($event, {school:'Enchantment'})">Enchantment</button>
-                <button type="button" class="btn" @click="addFilter($event, {school:'Evocation'})">Evocation</button>
-                <button type="button" class="btn" @click="addFilter($event, {school:'Illusion'})">Illusion</button>
-                <button type="button" class="btn" @click="addFilter($event, {school:'Necromancy'})">Necromancy</button>
-                <button type="button" class="btn" @click="addFilter($event, {school:'Transmutation'})">Transmutation</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('school','Abjuration') }" @click="addFilter($event, {school:'Abjuration'})">Abjuration</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('school','Conjuration') }" @click="addFilter($event, {school:'Conjuration'})">Conjuration</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('school','Divination') }" @click="addFilter($event, {school:'Divination'})">Divination</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('school','Enchantment') }" @click="addFilter($event, {school:'Enchantment'})">Enchantment</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('school','Evocation') }" @click="addFilter($event, {school:'Evocation'})">Evocation</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('school','Illusion') }" @click="addFilter($event, {school:'Illusion'})">Illusion</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('school','Necromancy') }" @click="addFilter($event, {school:'Necromancy'})">Necromancy</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('school','Transmutation') }" @click="addFilter($event, {school:'Transmutation'})">Transmutation</button>
             </div>
         </div>
         <div class="btn-toolbar filterToolbar" role="toolbar">
             <span class="filterLabel">Classes:</span>
             <div class="btn-group mr-2" role="group">
-                <button type="button" class="btn" @click="addFilter($event, {className:'Bard'})">Bard</button>
-                <button type="button" class="btn" @click="addFilter($event, {className:'Cleric'})">Cleric</button>
-                <button type="button" class="btn" @click="addFilter($event, {className:'Druid'})">Druid</button>
-                <button type="button" class="btn" @click="addFilter($event, {className:'Paladin'})">Paladin</button>
-                <button type="button" class="btn" @click="addFilter($event, {className:'Ranger'})">Ranger</button>
-                <button type="button" class="btn" @click="addFilter($event, {className:'Sorcerer'})">Sorcerer</button>
-                <button type="button" class="btn" @click="addFilter($event, {className:'Warlock'})">Warlock</button>
-                <button type="button" class="btn" @click="addFilter($event, {className:'Wizard'})">Wizard</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('className','Bard') }" @click="addFilter($event, {className:'Bard'})">Bard</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('className','Cleric') }" @click="addFilter($event, {className:'Cleric'})">Cleric</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('className','Druid') }" @click="addFilter($event, {className:'Druid'})">Druid</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('className','Paladin') }" @click="addFilter($event, {className:'Paladin'})">Paladin</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('className','Ranger') }" @click="addFilter($event, {className:'Ranger'})">Ranger</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('className','Sorcerer') }" @click="addFilter($event, {className:'Sorcerer'})">Sorcerer</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('className','Warlock') }" @click="addFilter($event, {className:'Warlock'})">Warlock</button>
+                <button type="button" class="btn" :class="{'btn-primary': isFilterActive('className','Wizard') }" @click="addFilter($event, {className:'Wizard'})">Wizard</button>
             </div>
         </div>
         <div class="form-group" id="searchbar">
@@ -58,6 +61,23 @@
             }
         },
         methods: {
+            clearFilters() {
+                this.$store.dispatch('clearAllFilters');
+                this.applyFilters();
+            },
+            isFilterActive(filter, value) {
+                if (filter === "level") {
+                    const levelFilters = this.$store.getters.levelFilter;
+                    return levelFilters.indexOf(value) > -1;
+                } else if (filter === "school") {
+                    const schoolFilters = this.$store.getters.schoolFilter;
+                    return schoolFilters.indexOf(value) > -1;
+                } else if (filter === "className") {
+                    const classFilters = this.$store.getters.classFilter;
+                    return classFilters.indexOf(value) > -1;
+                }
+                return false;
+            },
             addFilter(event, filterData) {
                 // My way of toggling the look of the buttons. Probably not the best way.
                 event.target.classList.toggle("btn-primary");
@@ -163,6 +183,7 @@
     #filterHeaderLabel {
         font-size: 20px;
         text-decoration: underline;
+        margin-right: 30px;
     }
     .filterToolbar {
         padding-left: 30px;
@@ -183,6 +204,10 @@
     @media screen and (max-width: 600px) {
         #filterHeaderLabel {
             display: none;
+        }
+        .filterToolbar {
+            padding-left: 0px;
+            padding-bottom: 1px;
         }
         .filterLabel {
             display: none;

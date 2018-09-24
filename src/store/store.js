@@ -46,6 +46,11 @@ export default new Vuex.Store({
         'SET_FILTEREDSPELLS'(state, spells) {
             state.filteredSpells = spells;
         },
+        'CLEAR_ALL_FILTERS'(state) {
+            state.levelFilter = [];
+            state.schoolFilter = [];
+            state.classFilter = []
+        },
         'ADD_LEVEL_TO_LEVELFILTER'(state, level) {
             state.levelFilter.push(level);
         },
@@ -98,6 +103,9 @@ export default new Vuex.Store({
         // },
         setFilteredSpells: (context, spells) => {
             context.commit('SET_FILTEREDSPELLS', spells);
+        },
+        clearAllFilters: (context) => {
+            context.commit('CLEAR_ALL_FILTERS');
         },
         addLevelToLevelFilter: (context, level) => {
             context.commit('ADD_LEVEL_TO_LEVELFILTER', level);
