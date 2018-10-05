@@ -7,7 +7,7 @@
             <p>Please wait while the spells are transcribed</p>
         </div>
         <div v-else class="row">
-                <router-view></router-view>
+            <router-view></router-view>
         </div>
     </div>
 </template>
